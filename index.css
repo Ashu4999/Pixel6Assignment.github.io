@@ -17,40 +17,68 @@ body{
 
 
 .form{
-    width: 30%;
+    width: auto;
+    
     position: absolute;
-    top: 100px;
+    top: 50px;
 }
 
-@media(max-width:1200px){
+
+
+
+/* @media(min-width:1200px){
     .form{
-        width: 40%;
+        width: 20%;
     }
 }
 
-@media(max-width:992px){
+@media(min-width:992px){
     .form{
         width: 45%;
     }
 }
-
-@media(max-width:768px){
+*/
+@media(min-width:768px){
     .form{
-        width: 50%;
+        top: 110px;
     }
 }
 
-@media(max-width:576px){
+
+@media(min-width:576px){
     .form{
-        width: 60%;
+        top: 170px;
     }
-}
+
+    .input-row input[type=text], input[type=number]{
+        width: 350px;
+    }
+    
+    
+    .input-row label{
+        font-family: Arial;
+        font-size: 20px;
+        font-weight: 600;
+    }
+} 
 
 @media(max-width:480px){
     .form{
-        width: 80%;
+        top: 250px;
+    }
+
+    .input-row input[type=text], input[type=number]{
+        width: 350px;
+    }
+    
+    
+    .input-row label{
+        font-family: Arial;
+        font-size: 20px;
+        font-weight: 600;
     }
 }
+
 
 .form-title{
     text-align: center;
@@ -64,7 +92,7 @@ body{
     align-items: center;
     border: 1px solid black;
     border-radius: 10px;
-    padding: 20px 0;
+    padding: 20px 50px;
 }
 
 .input-row{
