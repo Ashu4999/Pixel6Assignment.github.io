@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="index.css">
+        <title>Pixel6|Verification</title>
+        <script>
+            var attempt;
+            var name = sessionStorage.getItem("Name");
+            var email = sessionStorage.getItem("Email");
+            var otp = sessionStorage.getItem("Otp");
+            function getUserDetails()
+            {
+                attempt = 2;
+                
+                var firstname = "";
+                for(i=0;i<name.length;i++)
+                {
+                if(name[i]==" ")
+                {
+                    break;
+                }
+                firstname = firstname + name[i];
+                }
+                
+                console.log("Name= "+name+" Email="+email+" OTP="+otp);
+                document.getElementById("user-infomation").innerHTML = "Dear "+firstname+" <br> Thank you for your inquiry. A 4 digit verification number has been sent to your Email Id "+email+", please enter in the following box and submit for confirmation";
+            }
+
+            function verify()
+            {
+                var new_otp = document.getElementById("new_otp").value;
+                if(attempt>=1)
+                {
+                    if(otp == new_otp)
+                    {
+                        location.href = "http://pixel6.co/";
+                    }
+                    else
+                    {
+                        document.getElementById("attempt-info").innerHTML = "Wrong OTP<br>"+(attempt-1)+" left.";
+                        attempt--;
+                        console.log("Attempt "+attempt);
+                    }
+                }
+                else
+                {
+                    location.href = "Pixel6/notfound404.html"
+                }
+            }
+            function maskedOTP(new_otp)
+            {
+                var x = new_otp.value.replace(/\D/g, '').match(/^[0-9]{1,4}/);
+                // console.log(x);
+                // console.log(x[0]);
+                new_otp.value = x[0];
+            }
+        </script>
+    </head>
+    <body onload="getUserDetails()">
+        <div class="container">
+            <div class="form">
+                <div class="form-title">
+                    <h1>Verification Form</h1>
+                </div>
+                <div class="input-form">
+                    <div class="input-row">
+                        <span id="user-infomation"></span>
+                    </div>
+                    <div class="input-row">
+                        <label for="otp">OTP</label>
+                        <input type="number" name="new_otp" id="new_otp" oninput="maskedOTP(new_otp)" >
+                    </div>
+                    <div id="attempt-info"></div>
+                    <div class="input-row">
+                        <input type="button" class="btn" value="Validate" onclick="verify()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

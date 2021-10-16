@@ -1,0 +1,36 @@
+<html>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    
+    <script>
+        function sendEmail()
+        {
+            var email = document.getElementById("email").value;
+            console.log(email);
+            var otp= 111;
+            var subject = "For Verification Pixel6 Assignment";
+            var message = "Thank you for your inquiry.<br>OTP for verfication is "+otp+"<br> Do Not share OTP with anyone";
+            Email.send({
+                SecureToken : "03e1b454-eab3-4eef-8595-c636c808267c",
+                To : email,
+                From : "pmca83440@gmail.com",
+                Subject : subject,
+                Body : message
+            }).then(
+                message =>{
+                                        //console.log (message);
+                                        if(message=='OK'){
+                                        console.log('Your mail has been send. Thank you for connecting.');
+                                        }
+                                        else{
+                                            console.error (message);
+                                            console.log('There is error at sending message. ')
+                                            
+                                        }
+                                    });
+        }
+    </script>
+    <body>
+        Email: <input type="text" name="email" id="email"/><br>
+        <input type="button" value="send" onclick="sendEmail()"/>
+    </body>
+</html>
