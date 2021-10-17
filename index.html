@@ -48,7 +48,7 @@
                         document.getElementById("providerLogo").src = "";
                         document.getElementById("stateName").valye = "";
                         document.getElementById('note3').style.visibility = "visible";
-                        document.getElementById("note3").innerHTML = "Invalid Provider No (***) must <br>between 621-999";
+                        document.getElementById("note3").innerHTML = "Invalid Provider No (***) must <br>between 621-999.<br>Format is (provider no)-state no-****";
                     }
 
                     if(providername!="")
@@ -93,7 +93,7 @@
                             }
                             else{
                                 document.getElementById('note3').style.visibility = "visible";
-                                document.getElementById("note3").innerHTML = "Invalid State No *** please <br>use above suggestion list box<br> Format[(provider no)-state no-****]";
+                                document.getElementById("note3").innerHTML = "Invalid State No *** please <br>use above suggestion list box.<br>Format is (provider no)-state no-****";
                                 // return false;
                                 console.log("State Not Macth");
                             }
@@ -104,7 +104,7 @@
                 else
                 {
                     document.getElementById('note3').style.visibility = "visible";
-                    document.getElementById("note3").innerHTML = "Invalid Phone Number<br>(contains 10 number)";
+                    document.getElementById("note3").innerHTML = "Invalid Phone Number<br>(contains 10 number).";
                 }
             }
 
