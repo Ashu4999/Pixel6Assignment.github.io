@@ -9,7 +9,7 @@
             var otp = sessionStorage.getItem("Otp");
             function getUserDetails()
             {
-                attempt = 2;
+                attempt = 3;
                 
                 var firstname = "";
                 for(i=0;i<name.length;i++)
@@ -36,15 +36,19 @@
                     }
                     else
                     {
-                        document.getElementById("attempt-info").innerHTML = "Wrong OTP<br>"+(attempt-1)+" left.";
                         attempt--;
                         console.log("Attempt "+attempt);
+                        if(attempt==0)
+                        {
+                            location.href = "Pixel6/notfound404.html";
+                        }
+                        document.getElementById("attempt-info").innerHTML = "Wrong OTP<br>"+(attempt)+" left.";
                     }
                 }
-                else
-                {
-                    location.href = "Pixel6/notfound404.html"
-                }
+                // else
+                // {
+                //     location.href = "Pixel6/notfound404.html";
+                // }
             }
             function maskedOTP(new_otp)
             {
