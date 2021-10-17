@@ -199,7 +199,7 @@ function maskedName(full_name)
 function maskedEmail(email){
     // if(email.value != "")
     // {
-        if(email.value.match(/^\w+[a-zA-Z]+([\.!#$%'*+-\/=?^_`{|}~]?\w+)*@\w+[a-zA-z]+([\-]?\w+)*(\.[a-zA-Z]{2,3})+$/))
+        if(email.value.match(/^\w+[a-zA-Z]+([\.!#$%'*+-\/=?^_`{|}~]?\w+)*@\w*[a-zA-z]+([\-]?\w+)*(\.[a-zA-Z]{2,3})+$/))
         {
             document.getElementById("note2").innerHTML = "";
         }
