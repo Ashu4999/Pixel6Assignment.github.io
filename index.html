@@ -1,198 +1,12 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Pixel6 Assignment</title>
+        <script type="text/javascript" src="JS/index.js"></script>
         <script src="https://smtpjs.com/v3/smtp.js"></script>
-        <link rel="stylesheet" href="index.css">
-        <script>
-            var arr = {"937":"Maharastra","625":"Karnataka","950":"Punjab","621":"Assam","727":"Andhra Pradesh","801":"Odisha","920":"Dehli","921":"Gujarat","999":"Haryana","750":"Rajastan","850":"Himachal Pradesh","953":"Uttarakhand","725":"Jharkhand","825":"Chhattisgarh","925":"Kerala","675":"Tamil Nadu","775":"Madhya Pradesh","875":"West Bengal","975":"Bihar","699":"Uttar Pradesh","799":"Chandigarh","899":"Telangana","666":"Jammu & Kashmir","777":"Tripura","888":"Meghalaya","645":"Goa","745":"Arunachal Pradesh","845":"Manipur","945":"Mizoram","638":"Sikkim","790":"Puducerry","615":"Nagaland","734":"Andaman & Nicobar Islands","816":"Dadra & Nagar Haveli","909":"Daman & Diu","861":"Lakshadweep"};
-            
-            function createCombo() {
-                var combo = document.getElementById("combo");
-                for(obj in arr)
-                {
-                    
-                    var opt = document.createElement('option');
-                    opt.value = obj;
-                    opt.innerHTML = arr[obj];
-                    combo.appendChild(opt);
-                }
-            }
-            
-            function showProviderDetails()
-            {
-                var phone_no = document.getElementById("phone_no").value;
-                if(phone_no.match(/^\([0-9]{3}\)\-[0-9]{3}\-[0-9]{4}$/))
-                {
-                    var providername = "";
-                    var statename = "";
-            
-                    var providerPattern = /\([0-9]{3}\)/g;
-                    var provider = providerPattern.exec(phone_no);
-                    var providerno = provider[0];
-                    providerno = providerno.substring(1, 4)
-                    console.log(providerno);
-                    if(providerno>=621 && providerno<=799)
-                    {
-                        providername ="jio";
-                    }
-                    else if(providerno>=801 && providerno<=920)
-                    {
-                        providername ="idea";
-                    }
-                    else if(providerno>=921 && providerno<=999)
-                    {
-                        providername ="vodafone";
-                    }
-                    else
-                    {
-                        document.getElementById("providerLogo").src = "";
-                        document.getElementById("stateName").valye = "";
-                        document.getElementById('note3').style.visibility = "visible";
-                        document.getElementById("note3").innerHTML = "Invalid Provider No (***) must <br>between 621-999.<br>Format is (provider no)-state no-****";
-                    }
-
-                    if(providername!="")
-                    {
-                        let statepattern = /\-[0-9]{3}\-/;
-                        let stdetails = statepattern.exec(phone_no);
-                        
-                        var stateno = stdetails[0];
-                        stateno = stateno.substring(1, 4);
-                        for(obj in arr)
-                        {
-                            if(obj == stateno)
-                            {
-                                // statename = arr[obj];
-                                // // document.getElementById('note3').style.visibility = "hidden";
-                                // document.getElementById('note3').innerHTML = "";
-                                // break;
-                                console.log("State Macth");
-                                statename = arr[obj];
-                                if(providername=="jio")
-                                {
-                                    document.getElementById('Phone-details').style.visibility = "visible";
-                                    document.getElementById("providerLogo").src = "jio.png";
-                                    document.getElementById("stateName").innerHTML = statename;
-                                    document.getElementById("note3").innerHTML = "";
-                                }
-                                else if(providername=="idea")
-                                {
-                                    document.getElementById('Phone-details').style.visibility = "visible";
-                                    document.getElementById("providerLogo").src = "idea.png";
-                                    document.getElementById("stateName").innerHTML = statename;
-                                    document.getElementById("note3").innerHTML = "";
-                                }
-                                else if(providername=="vodafone")
-                                {
-                                    document.getElementById('Phone-details').style.visibility = "visible";
-                                    document.getElementById("providerLogo").src = "vodafone.png";
-                                    document.getElementById("stateName").innerHTML = statename;
-                                    document.getElementById("note3").innerHTML = "";
-                                }
-                                break;
-                            }
-                            else{
-                                document.getElementById('note3').style.visibility = "visible";
-                                document.getElementById("note3").innerHTML = "Invalid State No *** please <br>use above suggestion list box.<br>Format is (provider no)-state no-****";
-                                // return false;
-                                console.log("State Not Macth");
-                            }
-                        }
-                        
-                    }
-                }
-                else
-                {
-                    document.getElementById('note3').style.visibility = "visible";
-                    document.getElementById("note3").innerHTML = "Invalid Phone Number<br>(contains 10 number).";
-                }
-            }
-
-            function showStateDetails()
-            {
-                var combo = document.getElementById("combo");
-                document.getElementById("state-details").innerHTML = "State code of "+combo.options[combo.selectedIndex].text+" is "+combo.value;
-                document.getElementById("state-details").style.visibility = "visible"; 
-            }
-            function maskedPhoneNumber(phone_no)
-            {
-                var x = phone_no.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-                phone_no.value = !x[2] ? x[1] : '(' + x[1] + ')-' + x[2] + (x[3] ? '-' + x[3] : '');
-                console.log(x);
-                console.log(phone_no.value);
-            }
-            function perform(){
-                var name = document.getElementById("full_name").value;
-                var email = document.getElementById("email").value;
-                var phone_no = document.getElementById("phone_no").value;
-                
-                console.log("Name: "+name);
-                console.log("Email: "+email);
-                console.log("Phone NO: "+phone_no);
-                if(name.match(/^[a-zA-Z]{4,}\s+([a-zA-Z]{4,}\s*)+$/))
-                {
-                    console.log("Valid Name");
-                    document.getElementById("note1").innerHTML = "";
-                    if(email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
-                    {
-                        console.log("Valid Email ID");
-                        document.getElementById("note2").innerHTML = "";
-                        var phone_no = document.getElementById("phone_no").value;
-                        if(phone_no.match(/^\([0-9]{3}\)\-[0-9]{3}\-[0-9]{4}$/))
-                        {
-                            console.log("Valid Phone Number Success");
-                            document.getElementById("note3").innerHTML = "";
-                            let otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
-                            console.log(otp);
-                            //Email Code for sending otp(Not Working)
-                            var subject = "For Verification Pixel6 Assignment";
-                            var message = "Thank you for your inquiry<br>.OTP for verfication is "+otp+"<br> Do Not share OTP with anyone";
-
-                            Email.send({
-                                    SecureToken : "03e1b454-eab3-4eef-8595-c636c808267c",
-                                    To : email,
-                                    From : "pmca83440@gmail.com",
-                                    Subject : subject,
-                                    Body : message
-                                }).then(
-                                    message =>{
-                                        //console.log (message);
-                                        if(message=='OK'){
-                                        console.log('Your mail has been send. Thank you for connecting.');
-                                        sessionStorage.setItem("Name",name);
-                                        sessionStorage.setItem("Email",email);
-                                        sessionStorage.setItem("Otp",otp);
-                                        location.href = "verification.html";
-                                        }
-                                        else{
-                                            console.error (message);
-                                            console.log('There is error at sending message. ')
-                                            
-                                        }
-                                    });
-                        }
-                        else
-                        {
-                            console.log("Invalid Phone No");
-                            document.getElementById('note3').style.visibility = "visible";
-                            document.getElementById("note3").innerHTML = "Invalid Phone Number";
-                        }
-                    }
-                    else{
-                        console.log("Invalid Email");
-                        document.getElementById('note2').style.visibility = "visible";
-                        document.getElementById("note2").innerHTML = "Invalid Email";
-                    }
-                }
-                else{
-                    console.log("Invalid Name");
-                    document.getElementById('note1').style.visibility = "visible";
-                    document.getElementById("note1").innerHTML = "only alphabets and spaces allowed, <br>min two words each <br>with min 4 chars";
-                }
-            }
-        </script>
+        <link rel="stylesheet" href="CSS/index.css">
     </head>
-    <body onload="createCombo()">
+    <body>
         <div class="container">
             <div class="form">
                 <div class="form-title">
@@ -201,28 +15,28 @@
                 <div class="input-form">
                     <div class="input-row">
                         <label for="full_name">Full Name</label>
-                        <input type="text" name="full_name" id="full_name">
+                        <input type="text" name="full_name" id="full_name" onblur="maskedName(full_name)">
                         <span id="note1" class=""></span>
                     </div>
                     <div class="input-row">
                         <label for="email">Email</label>
-                        <input type="text" name="email" id="email">
+                        <input type="text" name="email" id="email" onblur="maskedEmail(email)">
                         <span id="note2" class=""></span>
                     </div>
-                    <div class="input-row">
+                    <!-- <div class="input-row">
                         <select name="combo" id="combo" onchange="showStateDetails()"></select>
-                    </div>
-                    <div class="input-row">
+                    </div> -->
+                    <!-- <div class="input-row">
                         <span id="state-details"></span>
-                    </div>
+                    </div> -->
                     <div class="input-row">
                         <label for="phone_no">Phone number</label>
-                        <input type="text" name="phone_no" id="phone_no" pattern="^\([0-9]{3}\)-[0-9]{3}-[0-9]{4}$" oninput="maskedPhoneNumber(phone_no)" onfocusout="showProviderDetails()">
+                        <input type="text" name="phone_no" id="phone_no" pattern="^\([0-9]{3}\)-[0-9]{3}-[0-9]{4}$" oninput="maskedPhoneNumber(phone_no)" onblur="showProviderDetails()">
                         <span id="note3"></span>
-                        <span id="Phone-details"><img id="providerLogo" src="" height="40px" width="40px"/><span id="stateName"></span></span>
+                        <div id="Phone-details"><img id="providerLogo" src="" height="40px" width="40px"/><span id="stateName"></span></div>
                     </div>
                     <div class="input-row">
-                        <input type="button" class="btn" value="Submit" onclick="perform()">
+                        <input type="button" class="btn" value="Submit" onclick="submitData()">
                     </div>
                 </div>
             </div>

@@ -161,6 +161,7 @@ input:valid + #note3:after{
     justify-content: center;
 }
 
+
 #state-details{
     visibility: hidden;
     color: rgb(7, 107, 15);
