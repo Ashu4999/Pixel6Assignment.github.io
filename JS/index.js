@@ -229,16 +229,16 @@ function submitData() {
     console.log("Name: " + name);
     console.log("Email: " + email);
     console.log("Phone NO: " + phone_no);
-    if (name != "") 
+    if (name.match(/^[a-zA-Z]{4,}\s+([a-zA-Z]{4,}\s*)+$/)) 
     {
         console.log("Valid Name");
         document.getElementById("note1").innerHTML = "";
-        if (email != "") 
+        if (email.match(/^\w+[a-zA-Z]+([\.!#$%'*+-\/=?^_`{|}~]?\w+)*@\w*[a-zA-z]+([\-]?\w+)*(\.[a-zA-Z]{2,3})+$/)) 
         {
             console.log("Valid Email ID");
             document.getElementById("note2").innerHTML = "";
             var phone_no = document.getElementById("phone_no").value;
-            if (phone_no != "") 
+            if (phone_no.match(/^\([0-9]{3}\)\-[0-9]{3}\-[0-9]{4}$/)) 
             {
                 console.log("Valid Phone Number Success");
                 document.getElementById("note3").innerHTML = "";
