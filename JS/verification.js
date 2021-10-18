@@ -17,6 +17,25 @@ function getUserDetails() {
     document.getElementById("user-infomation").innerHTML = "Dear " + firstname + " <br> Thank you for your inquiry. A 4 digit verification number has been sent to your Email Id " + email + ", please enter in the following box and submit for confirmation";
 }
 
+//validate OTP on onblur event
+function validateOTP(new_otp){
+    if(new_otp.value != "")
+    {
+        if(new_otp.value.replace(/\D/g, '').match(/^[0-9]{4}/))
+        {
+            document.getElementById("attempt-info").innerHTML = "";
+        }
+        else
+        {
+            document.getElementById("attempt-info").innerHTML = "Please Enter Valid OTP<br>OTP must contains 4 Digit";
+        }
+    }
+    else
+    {
+        document.getElementById("attempt-info").innerHTML = "Please Enter OTP";
+    }
+}
+
 function verify() {
     var new_otp = document.getElementById("new_otp").value;
     if(new_otp!="")

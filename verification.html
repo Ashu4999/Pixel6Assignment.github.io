@@ -17,7 +17,7 @@
                     </div>
                     <div class="input-row">
                         <label for="otp">OTP</label>
-                        <input type="text" name="new_otp" id="new_otp" oninput="maskedOTP(new_otp)" >
+                        <input type="text" name="new_otp" id="new_otp" oninput="maskedOTP(new_otp)" onblur="validateOTP(new_otp)">
                     </div>
                     <div id="attempt-info"></div>
                     <div class="input-row">

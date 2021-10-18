@@ -52,119 +52,128 @@ var states = {
 
 function showProviderDetails() {
     var phone_no = document.getElementById("phone_no").value;
-    if (phone_no.match(/^\([0-9]{3}\)\-[0-9]{3}\-[0-9]{4}$/)) {
-        document.getElementById('note3').style.visibility = "hidden";
-        var providername = "";
-        var statename = "";
-
-        var providerPattern = /\([0-9]{3}\)/g;
-        var provider = providerPattern.exec(phone_no);
-        var providerno = provider[0];
-        providerno = providerno.substring(1, 4)
-        console.log(providerno);
-        if (providerno >= 621 && providerno <= 799) {
-            providername = "jio";
-        }
-        else if (providerno >= 801 && providerno <= 920) {
-            providername = "idea";
-        }
-        else if (providerno >= 921 && providerno <= 999) {
-            providername = "vodafone";
+    if(phone_no != "")
+    {
+        if (phone_no.match(/^\([0-9]{3}\)\-[0-9]{3}\-[0-9]{4}$/)) {
+            document.getElementById('note3').style.visibility = "hidden";
+            var providername = "";
+            var statename = "";
+    
+            var providerPattern = /\([0-9]{3}\)/g;
+            var provider = providerPattern.exec(phone_no);
+            var providerno = provider[0];
+            providerno = providerno.substring(1, 4)
+            console.log(providerno);
+            if (providerno >= 621 && providerno <= 799) {
+                providername = "jio";
+            }
+            else if (providerno >= 801 && providerno <= 920) {
+                providername = "idea";
+            }
+            else if (providerno >= 921 && providerno <= 999) {
+                providername = "vodafone";
+            }
+            else {
+                document.getElementById("providerLogo").src = "";
+                document.getElementById("stateName").valye = "";
+                document.getElementById('Phone-details').style.visibility = "hidden";
+                document.getElementById('note3').style.visibility = "visible";
+                document.getElementById("note3").innerHTML = "Invalid Provider No (***) must <br>between 621-999.<br>Format is (provider no)-state no-****";
+            }
+    
+            if (providername != "") {
+                let statepattern = /\-[0-9]{3}\-/;
+                let stdetails = statepattern.exec(phone_no);
+    
+                var stateno = stdetails[0];
+                stateno = stateno.substring(1, 4);
+    
+                for(obj in states)
+                {
+                     // console.log(states[obj]["start"]+" "+states[obj]["end"]);
+                    if(stateno>=states[obj]["start"] && stateno<=states[obj]["end"])
+                    {
+                        statename = obj;
+                        break;
+                    }
+                }
+    
+                console.log("State Name:"+statename);
+                if(statename != "")
+                {
+                    if(providername == "jio")
+                    {
+                        document.getElementById('Phone-details').style.visibility = "visible";
+                        document.getElementById("providerLogo").src = "Images/jio.png";
+                        document.getElementById("stateName").innerHTML = statename;
+                        document.getElementById("note3").innerHTML = "";
+                    }
+                    else if(providername == "idea")
+                    {
+                        document.getElementById('Phone-details').style.visibility = "visible";
+                        document.getElementById("providerLogo").src = "Images/idea.png";
+                        document.getElementById("stateName").innerHTML = statename;
+                        document.getElementById("note3").innerHTML = "";
+                    }
+                    else if(providername == "vodafone")
+                    {
+                        document.getElementById('Phone-details').style.visibility = "visible";
+                        document.getElementById("providerLogo").src = "Images/vodafone.png";
+                        document.getElementById("stateName").innerHTML = statename;
+                        document.getElementById("note3").innerHTML = "";
+                    }
+                    
+                }
+                // for (obj in arr) {
+                //     if (obj == stateno) {
+                //         // statename = arr[obj];
+                //         // // document.getElementById('note3').style.visibility = "hidden";
+                //         // document.getElementById('note3').innerHTML = "";
+                //         // break;
+                //         console.log("State Macth");
+                //         statename = arr[obj];
+                //         if (providername == "jio") {
+                //             document.getElementById('Phone-details').style.visibility = "visible";
+                //             document.getElementById("providerLogo").src = "Images/jio.png";
+                //             document.getElementById("stateName").innerHTML = statename;
+                //             document.getElementById("note3").innerHTML = "";
+                //         }
+                //         else if (providername == "idea") {
+                //             document.getElementById('Phone-details').style.visibility = "visible";
+                //             document.getElementById("providerLogo").src = "Images/idea.png";
+                //             document.getElementById("stateName").innerHTML = statename;
+                //             document.getElementById("note3").innerHTML = "";
+                //         }
+                //         else if (providername == "vodafone") {
+                //             document.getElementById('Phone-details').style.visibility = "visible";
+                //             document.getElementById("providerLogo").src = "Images/vodafone.png";
+                //             document.getElementById("stateName").innerHTML = statename;
+                //             document.getElementById("note3").innerHTML = "";
+                //         }
+                //         break;
+                //     }
+                //     else {
+                //         document.getElementById('Phone-details').style.visibility = "hidden";
+                //         document.getElementById('note3').style.visibility = "visible";
+                //         document.getElementById("note3").innerHTML = "Invalid State No *** please <br>use above suggestion list box.<br>Format is (provider no)-state no-****";
+                //         // return false;
+                //         console.log("State Not Macth");
+                //     }
+                // }
+    
+            }
         }
         else {
-            document.getElementById("providerLogo").src = "";
-            document.getElementById("stateName").valye = "";
             document.getElementById('Phone-details').style.visibility = "hidden";
             document.getElementById('note3').style.visibility = "visible";
-            document.getElementById("note3").innerHTML = "Invalid Provider No (***) must <br>between 621-999.<br>Format is (provider no)-state no-****";
-        }
-
-        if (providername != "") {
-            let statepattern = /\-[0-9]{3}\-/;
-            let stdetails = statepattern.exec(phone_no);
-
-            var stateno = stdetails[0];
-            stateno = stateno.substring(1, 4);
-
-            for(obj in states)
-            {
-                 // console.log(states[obj]["start"]+" "+states[obj]["end"]);
-                if(stateno>=states[obj]["start"] && stateno<=states[obj]["end"])
-                {
-                    statename = obj;
-                    break;
-                }
-            }
-
-            console.log("State Name:"+statename);
-            if(statename != "")
-            {
-                if(providername == "jio")
-                {
-                    document.getElementById('Phone-details').style.visibility = "visible";
-                    document.getElementById("providerLogo").src = "Images/jio.png";
-                    document.getElementById("stateName").innerHTML = statename;
-                    document.getElementById("note3").innerHTML = "";
-                }
-                else if(providername == "idea")
-                {
-                    document.getElementById('Phone-details').style.visibility = "visible";
-                    document.getElementById("providerLogo").src = "Images/idea.png";
-                    document.getElementById("stateName").innerHTML = statename;
-                    document.getElementById("note3").innerHTML = "";
-                }
-                else if(providername == "vodafone")
-                {
-                    document.getElementById('Phone-details').style.visibility = "visible";
-                    document.getElementById("providerLogo").src = "Images/vodafone.png";
-                    document.getElementById("stateName").innerHTML = statename;
-                    document.getElementById("note3").innerHTML = "";
-                }
-                
-            }
-            // for (obj in arr) {
-            //     if (obj == stateno) {
-            //         // statename = arr[obj];
-            //         // // document.getElementById('note3').style.visibility = "hidden";
-            //         // document.getElementById('note3').innerHTML = "";
-            //         // break;
-            //         console.log("State Macth");
-            //         statename = arr[obj];
-            //         if (providername == "jio") {
-            //             document.getElementById('Phone-details').style.visibility = "visible";
-            //             document.getElementById("providerLogo").src = "Images/jio.png";
-            //             document.getElementById("stateName").innerHTML = statename;
-            //             document.getElementById("note3").innerHTML = "";
-            //         }
-            //         else if (providername == "idea") {
-            //             document.getElementById('Phone-details').style.visibility = "visible";
-            //             document.getElementById("providerLogo").src = "Images/idea.png";
-            //             document.getElementById("stateName").innerHTML = statename;
-            //             document.getElementById("note3").innerHTML = "";
-            //         }
-            //         else if (providername == "vodafone") {
-            //             document.getElementById('Phone-details').style.visibility = "visible";
-            //             document.getElementById("providerLogo").src = "Images/vodafone.png";
-            //             document.getElementById("stateName").innerHTML = statename;
-            //             document.getElementById("note3").innerHTML = "";
-            //         }
-            //         break;
-            //     }
-            //     else {
-            //         document.getElementById('Phone-details').style.visibility = "hidden";
-            //         document.getElementById('note3').style.visibility = "visible";
-            //         document.getElementById("note3").innerHTML = "Invalid State No *** please <br>use above suggestion list box.<br>Format is (provider no)-state no-****";
-            //         // return false;
-            //         console.log("State Not Macth");
-            //     }
-            // }
-
+            document.getElementById("note3").innerHTML = "Invalid Phone Number<br>(contains 10 number)<br>Format is (provider no)-state no-****";
         }
     }
-    else {
+    else
+    {
         document.getElementById('Phone-details').style.visibility = "hidden";
         document.getElementById('note3').style.visibility = "visible";
-        document.getElementById("note3").innerHTML = "Invalid Phone Number<br>(contains 10 number).";
+        document.getElementById("note3").innerHTML = "Please Enter Phone Number.";
     }
 }
 
@@ -197,8 +206,8 @@ function maskedName(full_name)
 }
 
 function maskedEmail(email){
-    // if(email.value != "")
-    // {
+    if(email.value != "")
+    {
         if(email.value.match(/^\w+[a-zA-Z]+([\.!#$%'*+-\/=?^_`{|}~]?\w+)*@\w*[a-zA-z]+([\-]?\w+)*(\.[a-zA-Z]{2,3})+$/))
         {
             document.getElementById("note2").innerHTML = "";
@@ -207,12 +216,12 @@ function maskedEmail(email){
             document.getElementById('note2').style.visibility = "visible";
             document.getElementById("note2").innerHTML = "Invalid Email";
         }
-    // }
-    // else
-    // {
-    //     document.getElementById('note2').style.visibility = "visible";
-    //     document.getElementById("note2").innerHTML = "Please Enter Email Here";
-    // }
+    }
+    else
+    {
+        document.getElementById('note2').style.visibility = "visible";
+        document.getElementById("note2").innerHTML = "Please Enter Email Address Here";
+    }
 }
 function maskedPhoneNumber(phone_no) {
     var x = phone_no.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -229,62 +238,86 @@ function submitData() {
     console.log("Name: " + name);
     console.log("Email: " + email);
     console.log("Phone NO: " + phone_no);
-    if (name.match(/^[a-zA-Z]{4,}\s+([a-zA-Z]{4,}\s*)+$/)) 
+    if(name != "")
     {
-        console.log("Valid Name");
-        document.getElementById("note1").innerHTML = "";
-        if (email.match(/^\w+[a-zA-Z]+([\.!#$%'*+-\/=?^_`{|}~]?\w+)*@\w*[a-zA-z]+([\-]?\w+)*(\.[a-zA-Z]{2,3})+$/)) 
+        if (name.match(/^[a-zA-Z]{4,}\s+([a-zA-Z]{4,}\s*)+$/)) 
         {
-            console.log("Valid Email ID");
-            document.getElementById("note2").innerHTML = "";
-            var phone_no = document.getElementById("phone_no").value;
-            if (phone_no.match(/^\([0-9]{3}\)\-[0-9]{3}\-[0-9]{4}$/)) 
+            console.log("Valid Name");
+            document.getElementById("note1").innerHTML = "";
+            if(email != "")
             {
-                console.log("Valid Phone Number Success");
-                document.getElementById("note3").innerHTML = "";
-                let otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
-                console.log(otp);
-                //Email Code for sending otp(Not Working)
-                var subject = "For Verification Pixel6 Assignment";
-                var message = "Thank you for your inquiry<br>.OTP for verfication is " + otp + "<br> Do Not share OTP with anyone";
+                if (email.match(/^\w+[a-zA-Z]+([\.!#$%'*+-\/=?^_`{|}~]?\w+)*@\w*[a-zA-z]+([\-]?\w+)*(\.[a-zA-Z]{2,3})+$/)) 
+                {
+                    console.log("Valid Email ID");
+                    document.getElementById("note2").innerHTML = "";
+                    var phone_no = document.getElementById("phone_no").value;
+                    if(phone_no !="")
+                    {
+                        if (phone_no.match(/^\([0-9]{3}\)\-[0-9]{3}\-[0-9]{4}$/)) 
+                        {
+                            console.log("Valid Phone Number Success");
+                            document.getElementById("note3").innerHTML = "";
+                            let otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+                            console.log(otp);
+                            //Email Code for sending otp(Not Working)
+                            var subject = "For Verification Pixel6 Assignment";
+                            var message = "Thank you for your inquiry<br>.OTP for verfication is " + otp + "<br> Do Not share OTP with anyone";
 
-                Email.send({
-                    SecureToken: "03e1b454-eab3-4eef-8595-c636c808267c",
-                    To: email,
-                    From: "pmca83440@gmail.com",
-                    Subject: subject,
-                    Body: message
-                }).then(
-                    message => {
-                        //console.log (message);
-                        if (message == 'OK') {
-                            console.log('Your mail has been send. Thank you for connecting.');
-                            sessionStorage.setItem("Name", name);
-                            sessionStorage.setItem("Email", email);
-                            sessionStorage.setItem("Otp", otp);
-                            location.href = "verification.html";
+                            Email.send({
+                                SecureToken: "03e1b454-eab3-4eef-8595-c636c808267c",
+                                To: email,
+                                From: "pmca83440@gmail.com",
+                                Subject: subject,
+                                Body: message
+                            }).then(
+                                message => {
+                                    //console.log (message);
+                                    if (message == 'OK') {
+                                        console.log('Your mail has been send. Thank you for connecting.');
+                                        sessionStorage.setItem("Name", name);
+                                        sessionStorage.setItem("Email", email);
+                                        sessionStorage.setItem("Otp", otp);
+                                        location.href = "verification.html";
+                                    }
+                                    else {
+                                        console.error(message);
+                                        console.log('There is error at sending message. ')
+
+                                    }
+                                });
                         }
                         else {
-                            console.error(message);
-                            console.log('There is error at sending message. ')
-
+                            console.log("Invalid Phone No");
+                            document.getElementById('note3').style.visibility = "visible";
+                            document.getElementById("note3").innerHTML = "Invalid Phone Number<br>(contains 10 number)<br>Format is (provider no)-state no-****";
                         }
-                    });
+                    }
+                    else
+                    {
+                        document.getElementById('note3').style.visibility = "visible";
+                        document.getElementById("note3").innerHTML = "Please Enter Phone Number.";
+                    }
+                }
+                else {
+                    console.log("Invalid Email");
+                    document.getElementById('note2').style.visibility = "visible";
+                    document.getElementById("note2").innerHTML = "Invalid Email";
+                }
             }
-            else {
-                console.log("Invalid Phone No");
-                document.getElementById('note3').style.visibility = "visible";
-                document.getElementById("note3").innerHTML = "Please Enter Phone Number.<br>Format is (provider no)-state no-****";
+            else
+            {
+                document.getElementById('note2').style.visibility = "visible";
+                document.getElementById("note2").innerHTML = "Please Enter Email Address Here.";
             }
         }
         else {
-            console.log("Invalid Email");
-            document.getElementById('note2').style.visibility = "visible";
-            document.getElementById("note2").innerHTML = "Please Enter Email Address Here.";
+            console.log("Invalid Name");
+            document.getElementById('note1').style.visibility = "visible";
+            document.getElementById("note1").innerHTML = "only alphabets and spaces allowed, <br>min two words each <br>with min 4 chars";
         }
     }
-    else {
-        console.log("Invalid Name");
+    else
+    {
         document.getElementById('note1').style.visibility = "visible";
         document.getElementById("note1").innerHTML = "Please Enter Name Here.";
     }
